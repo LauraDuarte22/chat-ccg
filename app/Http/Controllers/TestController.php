@@ -13,7 +13,7 @@ class TestController extends Controller
     public function sendMessages()
     {
         try {
-            $token = 'EAAS2zzRB9NMBAMW0AdCmKZBxZARgl7QhZCj50EFgSr9p82LHlhM2ebWWJvUhZCpaTNEJTelOfaCu2ZB9ynFmrZCgamrcD7EBzNEzGzVV4V9KZCvV0yMZCiPoEFtUhWkN3OOvTW961011yZBZAFJJLdD8BtUmu5Mc2wNu22pZBTIhabpumAcCQMk5jtp0c4wNkNjXkIoTEaCUOaxngZDZD';
+            $token = 'EAAS2zzRB9NMBAKSD9cZB0BjIak8F1UAM8IvAbFq2OG3P6mNr8V3MRYgF5fC7jZASBHpl2UaEysHpOaQZCtTsEZAPQYMKzPire17yTJM7ZAvgS9sAgzQv4J8WJSEbbHxccJVueltAgafgKdcqXqb8RdjkmhkNQmGc8vKq4OzIAlCOvHZBkfPUQMf1D8sv5nvKU5tvgMixmhvwZDZD';
             $phoneId = '107798042168198';
             $version = 'v12.0';
             $payload = [
@@ -94,19 +94,32 @@ class TestController extends Controller
         }
     }
 
-    public function getTemplates(Request $request)
+    public function getTemplates()
     {
         try {
-            $token = 'EAAS2zzRB9NMBAMW0AdCmKZBxZARgl7QhZCj50EFgSr9p82LHlhM2ebWWJvUhZCpaTNEJTelOfaCu2ZB9ynFmrZCgamrcD7EBzNEzGzVV4V9KZCvV0yMZCiPoEFtUhWkN3OOvTW961011yZBZAFJJLdD8BtUmu5Mc2wNu22pZBTIhabpumAcCQMk5jtp0c4wNkNjXkIoTEaCUOaxngZDZD';
+            $token = 'EAAS2zzRB9NMBAKSD9cZB0BjIak8F1UAM8IvAbFq2OG3P6mNr8V3MRYgF5fC7jZASBHpl2UaEysHpOaQZCtTsEZAPQYMKzPire17yTJM7ZAvgS9sAgzQv4J8WJSEbbHxccJVueltAgafgKdcqXqb8RdjkmhkNQmGc8vKq4OzIAlCOvHZBkfPUQMf1D8sv5nvKU5tvgMixmhvwZDZD';
             $whatsappId = '101098232848328';
             $version = 'v12.0';
             $response = Http::withToken($token)->get('https://graph.facebook.com/' . $version . '/' . $whatsappId . '/message_templates')->throw()->json();
-           
+            print_r($response['data'][0]); 
+            foreach ($response['data'] as $key => $value) {
+                if ($response['data'][$key]['status'] == "APPROVED") {
+                    echo("<b>Nombre de la plantilla: </b>" . $response['data'][$key]['name']);
+                    echo"<br>";
+                    //Cantidad de componentes que tiene la plantilla
+                    $components = count($response['data'][$key]['components']);
+                  
+
+                }
+                // echo "<br>";
+                // echo "Siguiente plantilla";
+                // echo "<br>";
+            }
+
             return response()->json([
                 'success' => true,
-                'data' => $response
+                // 'data' => count($response)
             ], 200);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
