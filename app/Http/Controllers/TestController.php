@@ -13,7 +13,7 @@ class TestController extends Controller
     public function sendMessages()
     {
         try {
-            $token = 'EAAS2zzRB9NMBAKSD9cZB0BjIak8F1UAM8IvAbFq2OG3P6mNr8V3MRYgF5fC7jZASBHpl2UaEysHpOaQZCtTsEZAPQYMKzPire17yTJM7ZAvgS9sAgzQv4J8WJSEbbHxccJVueltAgafgKdcqXqb8RdjkmhkNQmGc8vKq4OzIAlCOvHZBkfPUQMf1D8sv5nvKU5tvgMixmhvwZDZD';
+            $token = 'EAAS2zzRB9NMBAP1ancCEKgsCaS1iyapVm5CFICZBxZBZCZBA0iXB41vKXcjWZBDzheljvUdjevP8si5ZATqDbjJPmtmqY5EQu4EHqHKfQFOhA6CyHiGj1sw3CoUnzxZBxqJPeV8rKNAWNH5uILKrk7MEw9AjbMZA6qhQIqkUyH5gARddnVDpNHa0Djw7r4KVUkSShrPtDgcAtQZDZD';
             $phoneId = '107798042168198';
             $version = 'v12.0';
             $payload = [
@@ -97,23 +97,54 @@ class TestController extends Controller
     public function getTemplates()
     {
         try {
-            $token = 'EAAS2zzRB9NMBAKSD9cZB0BjIak8F1UAM8IvAbFq2OG3P6mNr8V3MRYgF5fC7jZASBHpl2UaEysHpOaQZCtTsEZAPQYMKzPire17yTJM7ZAvgS9sAgzQv4J8WJSEbbHxccJVueltAgafgKdcqXqb8RdjkmhkNQmGc8vKq4OzIAlCOvHZBkfPUQMf1D8sv5nvKU5tvgMixmhvwZDZD';
+            $token = 'EAAS2zzRB9NMBAP1ancCEKgsCaS1iyapVm5CFICZBxZBZCZBA0iXB41vKXcjWZBDzheljvUdjevP8si5ZATqDbjJPmtmqY5EQu4EHqHKfQFOhA6CyHiGj1sw3CoUnzxZBxqJPeV8rKNAWNH5uILKrk7MEw9AjbMZA6qhQIqkUyH5gARddnVDpNHa0Djw7r4KVUkSShrPtDgcAtQZDZD';
             $whatsappId = '101098232848328';
             $version = 'v12.0';
             $response = Http::withToken($token)->get('https://graph.facebook.com/' . $version . '/' . $whatsappId . '/message_templates')->throw()->json();
-            print_r($response['data'][0]); 
+
+
             foreach ($response['data'] as $key => $value) {
+              
+              
                 if ($response['data'][$key]['status'] == "APPROVED") {
-                    echo("<b>Nombre de la plantilla: </b>" . $response['data'][$key]['name']);
-                    echo"<br>";
+                    echo ("<b>Nombre de la plantilla: </b>" . $response['data'][$key]['name']);
+                    print_r("<br>");
                     //Cantidad de componentes que tiene la plantilla
                     $components = count($response['data'][$key]['components']);
-                  
 
+                    for ($i = 0; $i < $components; $i++) {
+
+                        if ($response['data'][$key]['components'][$i]['type'] == 'HEADER') {
+                            //Los formatos pueden ser texto - imagen - video -documento
+                            print_r("<b>Formato de header: </b>" . $response['data'][$key]['components'][$i]['format']);
+                            print_r("<br>");
+                        }
+                        if ($response['data'][$key]['components'][$i]['type'] == 'BODY') {
+                            //Texto principal de la plantilla
+                            print_r("<b>Texto principal de Body: </b>" . $response['data'][$key]['components'][$i]['text']);
+                            print_r("<br>");
+                        }
+                        if ($response['data'][$key]['components'][$i]['type'] == 'BUTTONS') {
+                            //Texto que contiene el botón
+                            print_r("<b>Tipo de botón: </b>" . $response['data'][$key]['components'][$i]['buttons'][0]['type']);
+                            print_r("<br>");
+                            //tipo de botón
+                            print_r("<b>Texto del botón: </b>" . $response['data'][$key]['components'][$i]['buttons'][0]['text']);
+                            print_r("<br>");
+                        }
+                        if ($response['data'][$key]['components'][$i]['type'] == 'FOOTER') {
+                            print_r("<b>Texto del Footer: </b>" . $response['data'][$key]['components'][$i]['text']);
+                        }
+                      
+                    }
+                    echo "<br>";
+                    echo "Siguiente plantilla";
+                    echo "<br>";
+                
+                  
                 }
-                // echo "<br>";
-                // echo "Siguiente plantilla";
-                // echo "<br>";
+              
+               
             }
 
             return response()->json([
