@@ -97,15 +97,24 @@ class TestController extends Controller
     public function getTemplates()
     {
         try {
-            $token = 'EAAS2zzRB9NMBAP1ancCEKgsCaS1iyapVm5CFICZBxZBZCZBA0iXB41vKXcjWZBDzheljvUdjevP8si5ZATqDbjJPmtmqY5EQu4EHqHKfQFOhA6CyHiGj1sw3CoUnzxZBxqJPeV8rKNAWNH5uILKrk7MEw9AjbMZA6qhQIqkUyH5gARddnVDpNHa0Djw7r4KVUkSShrPtDgcAtQZDZD';
+            $token = 'ygWk1YWlBm3OSeOsO6xS/krhfRO0y8jrC/ro1z5ZpS/MbEjnzxCGrJu/WtYS84WcXulD10izqprQ1OHsA1rtuN7WrPAze8GP97GMwpEDjnuDumJaJod6mbgZJy1wt8MMeAGVx8/Xn1DktiWkIuj1i31D7TMYAM6MUIQOSGLbXkz80H/yuCm1NYzqkwKQkKwMRNCQA3IR3igCKl64TMTV+otV8MlIqgBhd05fvuJcXbNBDtSBG5+ZJLFfDXibbOkjDQ4Db/W0bpad3SmB6ncLX65cUKds2w==';
+            $decryption = openssl_decrypt(
+                $token,
+                "AES-128-CTR",
+                "CCGltda2023**--",
+                0,
+                "1234567891011121"
+            );
+          
+            
             $whatsappId = '101098232848328';
             $version = 'v12.0';
-            $response = Http::withToken($token)->get('https://graph.facebook.com/' . $version . '/' . $whatsappId . '/message_templates')->throw()->json();
+            $response = Http::withToken($decryption)->get('https://graph.facebook.com/' . $version . '/' . $whatsappId . '/message_templates')->throw()->json();
 
 
             foreach ($response['data'] as $key => $value) {
-              
-              
+
+
                 if ($response['data'][$key]['status'] == "APPROVED") {
                     echo ("<b>Nombre de la plantilla: </b>" . $response['data'][$key]['name']);
                     print_r("<br>");
@@ -135,16 +144,11 @@ class TestController extends Controller
                         if ($response['data'][$key]['components'][$i]['type'] == 'FOOTER') {
                             print_r("<b>Texto del Footer: </b>" . $response['data'][$key]['components'][$i]['text']);
                         }
-                      
                     }
                     echo "<br>";
                     echo "Siguiente plantilla";
                     echo "<br>";
-                
-                  
                 }
-              
-               
             }
 
             return response()->json([
