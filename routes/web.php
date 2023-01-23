@@ -22,3 +22,5 @@ Route::get("/send-message", [TestController::class, "sendMessages"]);
 Route::get("/weebhook", [TestController::class, "verifyToken"]);
 Route::post("/weebhook", [TestController::class, "processWebhook"]);
 Route::get("/get-template", [TestController::class, "getTemplates"]);
+
+Route::post('/register', [AuthController::class, 'register']);
