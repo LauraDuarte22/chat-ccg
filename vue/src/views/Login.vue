@@ -135,13 +135,13 @@ const router = useRouter();
 const user = {
     email: "",
     password: "",
+    type:""
 };
 let loading = ref(false);
 let errorMsg = ref('');
 
 function login(ev) {
     ev.preventDefault();
-
     loading.value = true;
     store
         .dispatch("login", user)

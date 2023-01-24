@@ -36,7 +36,7 @@ class TestController extends Controller
             ];
 
 
-            $response = Http::withToken($token)->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->throw()->json();
+            $response = Http::withToken($decryption)->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->throw()->json();
 
             return response()->json([
                 'success' => true,
