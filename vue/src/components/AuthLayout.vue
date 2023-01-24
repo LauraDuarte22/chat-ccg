@@ -10,13 +10,16 @@
 <style>
 
 button[type="submit"] {
-    background-color: #0095c7;
+    background-color:whitesmoke;
+    color: black;
+
 }
 button[type="submit"]:hover,
 button[type="submit"]:focus {
     background-color: #3c3b3c;
     color: white;
 }
+
 </style>
 
 <script>

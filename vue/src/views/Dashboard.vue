@@ -22,7 +22,7 @@
                 <div
                     class="text-8xl pb-4 font-semibold flex-1 flex items-center justify-center"
                 >
-                    {{ data.totalAgents }}
+                    {{ data.totalConnected }}
                 </div>
             </div>
             <div
@@ -33,7 +33,7 @@
                 <div
                     class="text-8xl pb-4 font-semibold flex-1 flex items-center justify-center"
                 >
-                    {{ data.totalAgents }}
+                    {{ data.totalDisconnected }}
                 </div>
             </div>
             <div
@@ -76,7 +76,7 @@
 import PageComponent from "../components/PageComponent.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
-
+document.body.style.backgroundImage = "url()";
 const store = useStore();
 
 const loading = computed(() => store.state.dashboard.loading);

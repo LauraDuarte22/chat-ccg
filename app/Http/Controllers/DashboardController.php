@@ -12,9 +12,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $agents = User::query()->where('type','=', 'Agente')->count();
+        $agents = User::query()->where('profile','=', 'Agente')->count();
+        $agentsConnected = User::query()->where('profile','=', 'Agente')->where('status','=','1')->count();
         return [
-            "totalAgents" => $agents
+            "totalAgents" => $agents,
+            "totalConnected"=>$agentsConnected,
+            "totalDisconnected" =>$agents-$agentsConnected
         ];
     
     }

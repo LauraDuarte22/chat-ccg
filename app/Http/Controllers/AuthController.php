@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -16,17 +17,18 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|string|unique:users,email',
-            'type' => 'required|string',
-            'password' => 'required|string',
-
+            'profile' => 'required|string',
+            'password' => 'required|string'
         ]);
 
         /** @var \App\Models\User $user */
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'profile' => $data['profile'],
+            'status' => false,
             'password' => bcrypt($data['password']),
-            'type' => $data['type']
+
         ]);
         $token = $user->createToken('main')->plainTextToken;
 
@@ -35,6 +37,7 @@ class AuthController extends Controller
             'token' => $token
         ]);
     }
+  
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -46,6 +49,10 @@ class AuthController extends Controller
         ]);
         $remember = $credentials['remember'] ?? false;
         unset($credentials['remember']);
+        User::where('email', $credentials['email'])
+        ->update([
+            'status' => true
+         ]);
 
         if (!Auth::attempt($credentials, $remember)) {
             return response([
@@ -53,6 +60,8 @@ class AuthController extends Controller
             ], 422);
         }
         $user = Auth::user();
+        
+        
         $token = $user->createToken('main')->plainTextToken;
 
         return response([
@@ -70,5 +79,6 @@ class AuthController extends Controller
         return response([
             'success' => true
         ]);
+
     }
 }

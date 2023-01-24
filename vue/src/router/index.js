@@ -3,11 +3,11 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Reports from "../views/Reports.vue";
+import Campaing from "../views/Campaing.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
-
 import store from "../store";
-import axios from "axios";
+
 
 const routes = [
     {
@@ -22,13 +22,17 @@ const routes = [
             { path: "/reports", name: "Reports", component: Reports },
         ],
     },
+ 
 
     {
         path: "/auth",
         redirect: "/login",
         name: "Auth",
         component: AuthLayout,
-        meta: { isGuest: true },
+        meta: { 
+            isGuest: true,
+            image: '../assets/background.jpg'
+         },
         children: [
             {
                 path: "/",
@@ -39,6 +43,11 @@ const routes = [
                 path: "/register",
                 name: "Register",
                 component: Register,
+            },
+            {
+                path: "/campaing",
+                name: "Campaing",
+                component: Campaing,
             },
         ],
     },
@@ -58,8 +67,6 @@ router.beforeEach((to, from, next) => {
     }
 });
 function auth(to, from, next) {
-    const value = `;${document.cookie}`;
-    const token = value.split`;${"Access-Token}="}`;
     if (store.state.user.data.type == "Agente") {
         alert('Sin autorización')
         next({name:'/'})

@@ -34,18 +34,51 @@
                                             >Open user menu</span
                                         >
                                         <svg
+                                            class="h-12 w-12"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
                                             viewBox="0 0 24 24"
-                                            stroke="white"
+                                            fill="#FFFFFF"
+                                            stroke="#000000"
                                         >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
+                                            <g id="a" />
+                                            <g id="b" />
+                                            <g id="c" />
+                                            <g id="d" />
+                                            <g id="e" />
+                                            <g id="f" />
+                                            <g id="g" />
+                                            <g id="h" />
+                                            <g id="i">
+                                                <g>
+                                                    <circle
+                                                        cx="12"
+                                                        cy="9"
+                                                        r="2.25"
+                                                    />
+                                                    <path
+                                                        fill="#FFFFFF"
+                                                        stroke="#000000"
+                                                        d="M12,14.75c-2.81,0-5.29,1.44-6.03,3.5l-.49,.97c1.73,1.56,4.01,2.52,6.52,2.52s4.77-.95,6.5-2.5l-.44-.93c-.77-2.13-3.25-3.57-6.06-3.57Z"
+                                                    />
+                                                    <path
+                                                        fill="#FFFFFF"
+                                                        stroke="#000000"
+                                                        d="M12,2.25C6.62,2.25,2.25,6.62,2.25,12c0,2.3,.8,4.41,2.14,6.07l.21-.41c.92-2.56,3.98-4.41,7.41-4.41s6.49,1.85,7.44,4.5l.16,.34c1.34-1.67,2.15-3.78,2.15-6.09,0-5.38-4.37-9.75-9.75-9.75Zm0,10.5c-2.07,0-3.75-1.68-3.75-3.75s1.68-3.75,3.75-3.75,3.75,1.68,3.75,3.75-1.68,3.75-3.75,3.75Z"
+                                                    />
+                                                </g>
+                                            </g>
+                                            <g id="j" />
+                                            <g id="k" />
+                                            <g id="l" />
+                                            <g id="m" />
+                                            <g id="n" />
+                                            <g id="o" />
+                                            <g id="p" />
+                                            <g id="q" />
+                                            <g id="r" />
+                                            <g id="s" />
+                                            <g id="t" />
+                                            <g id="u" />
                                         </svg>
                                     </MenuButton>
                                 </div>
@@ -66,7 +99,6 @@
                                                 :class="[
                                                     'block px-4 py-2 text-sm text-gray-700 cursor-pointer                                                   hover:#0095c7',
                                                 ]"
-                                               
                                             >
                                                 Cerrar Sesión
                                             </a>
@@ -117,18 +149,47 @@
                     <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
                             <svg
-                                xmlns="http://www.w3.org/2000/svg"
                                 class="h-8 w-8"
-                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
-                                stroke="white"
+                                fill="#FFFFFF"
+                                stroke="#000000"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
+                                <g id="a" />
+                                <g id="b" />
+                                <g id="c" />
+                                <g id="d" />
+                                <g id="e" />
+                                <g id="f" />
+                                <g id="g" />
+                                <g id="h" />
+                                <g id="i" />
+                                <g id="j" />
+                                <g id="k" />
+                                <g id="l" />
+                                <g id="m">
+                                    <g>
+                                        <circle cx="10.5" cy="8" r="1.75" />
+                                        <path
+                                            fill="#FFFFFF"
+                                            stroke="#000000"
+                                            d="M14,18.75c2.62,0,4.75-2.13,4.75-4.75V7c0-2.62-2.13-4.75-4.75-4.75H7c-2.62,0-4.75,2.13-4.75,4.75v7c0,2.62,2.13,4.75,4.75,4.75h7Zm-3.5-14c1.79,0,3.25,1.46,3.25,3.25s-1.46,3.25-3.25,3.25-3.25-1.46-3.25-3.25,1.46-3.25,3.25-3.25Zm-4.83,11.42c-.37-.19-.52-.64-.34-1.01l.45-.89c.47-.94,1.41-1.52,2.46-1.52h4.53c1.05,0,1.99,.58,2.46,1.52l.45,.89c.19,.37,.04,.82-.34,1.01-.11,.05-.22,.08-.33,.08-.28,0-.54-.15-.67-.41l-.45-.89c-.21-.43-.64-.69-1.12-.69h-4.53c-.48,0-.91,.26-1.12,.69l-.45,.89c-.19,.37-.63,.52-1.01,.34Z"
+                                        />
+                                        <path
+                                            fill="#FFFFFF"
+                                            stroke="#000000"
+                                            d="M20.23,6.51c.01,.16,.02,.32,.02,.49v7c0,3.45-2.8,6.25-6.25,6.25H7c-.16,0-.33-.01-.49-.02,.88,.95,2.13,1.52,3.49,1.52h7c2.62,0,4.75-2.13,4.75-4.75v-7c0-1.36-.58-2.61-1.52-3.49Z"
+                                        />
+                                    </g>
+                                </g>
+                                <g id="n" />
+                                <g id="o" />
+                                <g id="p" />
+                                <g id="q" />
+                                <g id="r" />
+                                <g id="s" />
+                                <g id="t" />
+                                <g id="u" />
                             </svg>
                         </div>
                         <div class="ml-3">
@@ -145,11 +206,11 @@
                             <div
                                 class="text-sm font-medium leading-none text-gray-400"
                             >
-                                {{ user.type }}
+                                {{ user.profile }}
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3 space-y-1 px-2" >
+                    <div class="mt-3 space-y-1 px-2">
                         <DisclosureButton
                             as="a"
                             @click="logout"
@@ -219,7 +280,4 @@ export default {
     },
 };
 </script>
-<style>
-
-</style>
-
+<style></style>

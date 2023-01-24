@@ -7,11 +7,13 @@ const store = createStore({
             data: {},
             token: sessionStorage.getItem("TOKEN"),
         },
-        dashboard:{
-            loading:false,
-            data:{}
-
-        }
+        campaing: {
+            data: {},
+        },
+        dashboard: {
+            loading: false,
+            data: {},
+        },
     },
     getters: {},
     actions: {
@@ -31,23 +33,32 @@ const store = createStore({
             });
         },
         logout({ commit }) {
-            return axiosClient.post("/logout")
-            .then((response) => {
+            return axiosClient.post("/logout").then((response) => {
                 commit("logout");
                 return response;
             });
         },
-        getDashboardData({commit}){
-            commit('getDashboardLoading',true)
-            return axiosClient.get("/dashboard")
-            .then((res)=>{
-                commit('getDashboardLoading',false)
-                commit('setDashboardLoading',res.data)
-            }).catch(e=>{
-                commit('getDashboardLoading',false)
-                return e
-            })
-        }
+        getDashboardData({ commit }) {
+            commit("getDashboardLoading", true);
+            return axiosClient
+                .get("/dashboard")
+                .then((res) => {
+                    commit("getDashboardLoading", false);
+                    commit("setDashboardLoading", res.data);
+                })
+                .catch((e) => {
+                    commit("getDashboardLoading", false);
+                    return e;
+                });
+        },
+        createCampaing({ commit }, campaing) {
+            return axiosClient
+                .post("/createCampaing", campaing)
+                .then(({ data }) => {
+                    commit("setCampaing", data);
+                    return data;
+                });
+        },
     },
     mutations: {
         logout: (state) => {
@@ -60,12 +71,17 @@ const store = createStore({
             state.user.token = userData.token;
             sessionStorage.setItem("TOKEN", userData.token);
         },
-        getDashboardLoading:(state,loading)=>{
-            state.dashboard.loading=loading;
+        setCampaing(state, newCampaing) {
+            state.campaing.data = newCampaing.campaing;
+            state.user.data = newCampaing.user;
+
         },
-        setDashboardLoading:(state,data)=>{
-            state.dashboard.data=data;
-        }
+        getDashboardLoading: (state, loading) => {
+            state.dashboard.loading = loading;
+        },
+        setDashboardLoading: (state, data) => {
+            state.dashboard.data = data;
+        },
     },
     modules: {},
 });

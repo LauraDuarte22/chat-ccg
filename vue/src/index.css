@@ -1,8 +1,24 @@
 :root {
-    --color-primary: #0095C7;
-    --color-secondary: #3C3B3C;
-    /* ... */
-  }
+  --primary-color: #3094c5;
+  --second-color: #181b2a;
+  --third-color: #d20039;
+  --black-color: #252525;
+  --gray-color: #727272;
+  --silver-color: #dbdbdb;
+  --primary-font: 'Nunito', sans-serif;
+  --primary-font-normal: 400;
+  --primary-font-medium: 700;
+  --primary-font-bold: 800;
+  --second-font: 'Montserrat', sans-serif;
+  --second-font-normal: 400;
+  --second-font-medium: 700;
+  --second-font-bold: 900;
+  --columns-padding: 30px 0 30px 0;
+  --nc-padding: 80px 0 80px 0;
+  --aboutus-padding: 0 15px 0 15px;
+  --info-padding: 0 15px 0 15px;
+  --links-padding: 0 15px 0 15px;
+}
 
 @tailwind base;
 @tailwind components;
