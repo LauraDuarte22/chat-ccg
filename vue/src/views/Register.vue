@@ -78,17 +78,33 @@
                 </svg>
             </span>
         </Alert>
+
         <div class="-space-y-px rounded-md shadow-sm">
             <div>
-                <label for="full-name" class="sr-only">Nombre completo</label>
+                <select
+                    v-model="user.campaing"
+                    class="relative block w-full rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                    <option selected disabled value="">
+                        Seleccione la campaña
+                    </option>
+                    <option v-for="campaing in data.campaings">
+                        {{ campaing.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="rounded-md shadow-sm -space-y-px">
+            <div>
+                <label for="usuario" class="sr-only">Usuario</label>
                 <input
-                    id="email-address"
-                    name="full-name"
+                    id="usuario"
+                    name="usuario"
                     type="text"
-                    required=""
-                    class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Nombre completo"
                     v-model="user.name"
+                    required=""
+                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Nombre del usuario"
                 />
             </div>
         </div>
@@ -101,7 +117,9 @@
                 v-model="user.profile"
                 class="relative block w-full rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             >
-                <option selected disabled value="">Seleccione el tipo de usuario</option>
+                <option selected disabled value="">
+                    Seleccione el tipo de usuario
+                </option>
                 <option value="Agente">Agente</option>
                 <option value="Supervisor">Supervisor</option>
             </select>
@@ -147,19 +165,27 @@
 import store from "../store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import { computed } from "vue";
 import Alert from "../components/Alert.vue";
+import { inject } from "vue";
+
+const swal = inject("$swal");
 document.body.style.backgroundImage = "url(/src/assets/background.jpg)";
 const router = useRouter();
+const data = computed(() => store.state.campaing.data);
+store.dispatch("getCampaing");
 
 const user = {
     name: "",
     email: "",
     password: "",
     profile: "",
+    campaing: "",
     status: false,
 };
 const loading = ref(false);
-const errorMsg = ref("");
+const errorMsg = ref('');
+
 function register(ev) {
     ev.preventDefault();
     loading.value = true;
@@ -167,20 +193,19 @@ function register(ev) {
         .dispatch("register", user)
         .then(() => {
             loading.value = false;
-            if (user.profile == "Agente") {
-                router.push({
-                    name: "Login",
-                });
-            } else {
-                router.push({
-                    name: "Reports",
-                });
-            }
+            swal.fire({
+                icon: "success",
+                title: "Usuario creado con exito",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            router.push({
+                name: "Login",
+            });
         })
         .catch((e) => {
             errorMsg.value = "Este usuario ya existe";
             loading.value = false;
         });
-       
 }
 </script>

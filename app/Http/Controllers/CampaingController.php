@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampaignUser;
 use App\Models\Campaing;
 use App\Http\Controllers\AuthController;
 use App\Models\User;
@@ -36,9 +37,23 @@ class CampaingController extends Controller
         ]);
         $token = $user->createToken('main')->plainTextToken;
 
+        $campaignUser=CampaignUser::create([
+            'user_id' => $user['id'],
+            'campaing_id' => $campaing['id']
+        ]);
         return response([
             'campaing' => $campaing,
-            'user'=>$user
+            'user' => $user,
+            
         ]);
+    }
+
+    public function getCampaing(Request $request){
+
+        $campaing = Campaing::query()->select('name')->get();
+       
+        return [
+            "campaings" => $campaing,
+        ];
     }
 }

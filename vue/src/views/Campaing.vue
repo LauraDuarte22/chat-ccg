@@ -80,7 +80,6 @@
             </button>
         </div>
     </form>
-
 </template>
 
 <script setup>
@@ -88,44 +87,37 @@ import store from "../store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Alert from "../components/Alert.vue";
-import Modal from "../components/Modal.vue";
-import { inject } from 'vue'
-
+import { inject } from "vue";
+const swal = inject("$swal");
 document.body.style.backgroundImage = "url(/src/assets/background.jpg)";
-const swal = inject('$swal')
-
 const campaing = {
     name: "",
-    status:""
+    status: "",
 };
 const loading = ref(false);
 const errorMsg = ref("");
-const router =useRouter();
-
+const router = useRouter();
 
 function createCampaing(ev) {
     ev.preventDefault();
     loading.value = true;
-   store
+    store
         .dispatch("createCampaing", campaing)
         .then(() => {
             loading.value = false;
-            validate.value = true;
-             swal.fire({
-        icon: 'success',
-        title: 'Campaña creada con exito',
-        showConfirmButton: false,
-        timer: 1500
-        })
-
+            swal.fire({
+                icon: "success",
+                title: "Campaña creada con exito",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            router.push({
+                name: "Login",
+            });
         })
         .catch(($e) => {
             errorMsg.value = "Esta campaña ya existe";
             loading.value = false;
-    
-    
         });
-
-   
 }
 </script>

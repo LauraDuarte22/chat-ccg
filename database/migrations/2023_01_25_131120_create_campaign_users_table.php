@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\campaign;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,10 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('campaign-users', function (Blueprint $table) {
+        Schema::create('campaign_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignIdFor(Campaign::class, 'campaing_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('campaing_id')->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campaign-users');
+        Schema::dropIfExists('campaign_users');
     }
 };

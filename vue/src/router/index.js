@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Dashboard from "../views/Dashboard.vue";
-import Reports from "../views/Reports.vue";
+import Configuration from "../views/Configuration.vue";
+import Chat from "../views/Chat.vue";
 import Campaing from "../views/Campaing.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
@@ -19,7 +20,8 @@ const routes = [
         beforeEnter: auth,
         children: [
             { path: "/dashboard", name: "Dashboard", component: Dashboard },
-            { path: "/reports", name: "Reports", component: Reports },
+            { path: "/Chat", name: "Chat", component: Chat },
+            { path: "/Configuration", name: "Configuration", component: Configuration },
         ],
     },
  
@@ -71,7 +73,6 @@ function auth(to, from, next) {
         alert('Sin autorización')
         next({name:'/'})
     } else {
-        console.log("sigue")
         next();
     }
 }

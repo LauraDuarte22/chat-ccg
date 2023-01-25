@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Database\Console\Migrations\StatusCommand;
+use App\Models\CampaignUser;
+use App\Models\Campaing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
+
 
 
 class AuthController extends Controller
@@ -18,7 +19,8 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|string|unique:users,email',
             'profile' => 'required|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'campaing' => 'required|string'
         ]);
 
         /** @var \App\Models\User $user */
@@ -31,13 +33,21 @@ class AuthController extends Controller
 
         ]);
         $token = $user->createToken('main')->plainTextToken;
+        $campaing = $data['campaing'];
+        $campaingId = Campaing::query()->select('id')->where('name','=',$campaing)->get();
+       $CampaignUser= CampaignUser::create([
+            'user_id' =>  $user['id'],
+            'campaing_id'=>$campaingId[0]['id'],
+           
+        ]);
 
         return response([
-            'user' => $user,
-            'token' => $token
+            'user' =>$user,
+           'token' => $token,
+            'campaing'=> $campaing 
         ]);
     }
-  
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -50,9 +60,9 @@ class AuthController extends Controller
         $remember = $credentials['remember'] ?? false;
         unset($credentials['remember']);
         User::where('email', $credentials['email'])
-        ->update([
-            'status' => true
-         ]);
+            ->update([
+                'status' => true
+            ]);
 
         if (!Auth::attempt($credentials, $remember)) {
             return response([
@@ -60,8 +70,8 @@ class AuthController extends Controller
             ], 422);
         }
         $user = Auth::user();
-        
-        
+
+
         $token = $user->createToken('main')->plainTextToken;
 
         return response([
@@ -79,6 +89,5 @@ class AuthController extends Controller
         return response([
             'success' => true
         ]);
-
     }
 }

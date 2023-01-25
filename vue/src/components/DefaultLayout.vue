@@ -242,8 +242,9 @@ import { useRouter } from "vue-router";
 import { RouterLink } from "vue-router";
 
 const navigation = [
-    { name: "Dashboard", to: { name: "Dashboard" } },
-    { name: "Reportes", to: { name: "Reports" }, current: false },
+    { name: "Dashboard", to: { name: "Dashboard" },current: false  },
+    { name: "Chat", to: { name: "Chat" }, current: false },
+    { name: "Configuration", to: { name: "Configuration" }, current: false },
 ];
 
 export default {

@@ -10,7 +10,7 @@ class TestController extends Controller
 
 {
 
-    public function sendMessages()
+    public function sendMessagesWithTemplate()
     {
         try {
             $token = 'ygWk1YWlBm3OSeOsO6xS/krhfRO0y8jrC/ro1z5ZpS/MbEjnzxCGrJu/WtYS84WcXulD10izqprQ1OHsA1rtuN7WrPAze8GP97GMwpEDjnuDumJaJod6mbgZJy1wt8MMeAGVx8/Xn1DktiWkIuj1i31D7TMYAM6MUIQOSGLbXkz80H/yuCm1NYzqkwKQkKwMRNCQA3IR3igCKl64TMTV+otV8MlIqgBhd05fvuJcXbNBDtSBG5+ZJLFfDXibbOkjDQ4Db/W0bpad3SmB6ncLX65cUKds2w==';
@@ -161,6 +161,45 @@ class TestController extends Controller
             return response()->json([
                 'success' => true,
                 // 'data' => count($response)
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function sendMessages(Request $request)
+    {
+        try {
+            $token = 'ygWk1YWlBm3OSeOsO6xS/krhfRO0y8jrC/ro1z5ZpS/MbEjnzxCGrJu/WtYS84WcXulD10izqprQ1OHsA1rtuN7WrPAze8GP97GMwpEDjnuDumJaJod6mbgZJy1wt8MMeAGVx8/Xn1DktiWkIuj1i31D7TMYAM6MUIQOSGLbXkz80H/yuCm1NYzqkwKQkKwMRNCQA3IR3igCKl64TMTV+otV8MlIqgBhd05fvuJcXbNBDtSBG5+ZJLFfDXibbOkjDQ4Db/W0bpad3SmB6ncLX65cUKds2w==';
+            $decryption = openssl_decrypt(
+                $token,
+                "AES-128-CTR",
+                "CCGltda2023**--",
+                0,
+                "1234567891011121"
+            );
+            $phoneId = '107798042168198';
+            $version = 'v12.0';
+            $bodyContent = json_decode($request->getContent(), true);
+            $message = $bodyContent['sendMessage'];
+          
+            $payload = [
+                "messaging_product" => "whatsapp",
+                "to" => "573193691016",
+                "type" => "text",
+                "text" => [
+                    "body" =>   $message,
+                ]
+            ];
+
+
+            $response = Http::withToken($decryption)->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->throw()->json();
+
+            return response()->json([
+                'success' => true,
+                'data' => $response,
             ], 200);
         } catch (Exception $e) {
             return response()->json([

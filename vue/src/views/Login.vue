@@ -243,7 +243,8 @@ function login(ev) {
     loading.value = true;
     store
         .dispatch("login", user)
-        .then(() => {
+        .then((data) => {
+          
             loading.value = true;
             if (user.profile == "Agente") {
                 router.push({
@@ -251,12 +252,12 @@ function login(ev) {
                 });
             } else {
                 router.push({
-                    name: "Reports",
+                    name: "Chat",
                 });
             }
         })
-        .catch((err) => {
-            errorMsg.value = "Credenciales erróneas";
+        .catch((e) => {
+            errorMsg.value ="Credenciales erroneas";
             loading.value = false;
         });
 }
